@@ -4,10 +4,12 @@ namespace app\qiniuapi\controller;
 
 use think\Controller;
 
-use Qiniu\Auth;
-use Qiniu\Storage\UploadManager;
-use Qiniu\Storage\BucketManager;
-require_once APP_PATH . '/../vendor/qiniu/autoload.php';
+use app\qiniuapi\model\Qiniuapi;
+
+//use Qiniu\Auth;
+//use Qiniu\Storage\UploadManager;
+//use Qiniu\Storage\BucketManager;
+//require_once APP_PATH . '/../vendor/qiniu/autoload.php';
 
 
 class Index extends Controller{
@@ -19,74 +21,116 @@ class Index extends Controller{
         echo '<hr>';
 
         // 调用七牛云上传示例，返回七牛文件名
-        $file_path = ROOT_PATH."h5/letter/niming.png";
-        $qiniu_bucket = "test";
-        $res = $this->qiniu_upload_api($file_path, $qiniu_bucket);
-        print_r($res['status']); // 最终状态
-        echo '<hr>';
-        print_r($res['content']); // 最终文件名
-        echo "http://p9mda7c37.bkt.clouddn.com/".$res['content'];
+//        $file_path = ROOT_PATH."h5/letter/niming.png";
+//        $qiniu_bucket = "toudeng";
+//        $res = $this->qiniu_upload_api($file_path, $qiniu_bucket);
+//        print_r($res['status']); // 最终状态
+//        echo '<hr>';
+//        print_r($res['content']); // 最终文件名
+
 
     }
 
 
     /*
-     * 向七牛云上传文件【post Api】，支持【一切有格式】的文件，并返回文件名
-     * 接口示例：http://xxxxxx/public/?s=/qiniuapi/index/qiniu_upload_api
-     *
-     * $file_path：文件服务器中路径，例如：D:\wamp64\www\wxmail\h5/letter/niming.png 写法：ROOT_PATH."h5/letter/niming.png"
-     * $qiniu_bucket：七牛bucket
+     * base64转图片并保存到本地，然后上传到七牛云
+     * post方法：http://localhost/wxmail/public/?s=/qiniuapi/index/save_base64_img
      *
      * */
-    public function qiniu_upload_api($file_path, $qiniu_bucket){
+    public function save_base64_img(){
 
-        if($_REQUEST){
-
-            $accessKey = '7We6C5IOMdYGyFv8_sD3Uh1MzXZpSMDf9t3vJVQZ';
-            $secretKey = 'JANUchd3uGPff-hRumhUGjuFA6NZw8KVC5QiBb-J';
-            //$domain = 'http://p9mda7c37.bkt.clouddn.com'; // 临时域名或绑定的域名http://p9mda7c37.bkt.clouddn.com
-            //$bucket='test'; // 七牛上面的文件夹
-
-            if(!$file_path || !$qiniu_bucket){
-                return array("status"=>0,"content"=>"file_path or qiniu_buket is null");
-            }
-
-            $bucket = $qiniu_bucket;
-
-            $auth = new Auth($accessKey,$secretKey);
-            $token = $auth->uploadToken($bucket);
-            $uploadMgr = new UploadManager();
-
-            $files = $file_path; // 文件服务器中路径
-            $pattern = substr(strrchr($files, '.'), 1); // 正则文件格式
-            if (!$pattern){
-                return array("status"=>0, "content"=>"pattern is null");
-            }
-            //print_r($files);
-            $tmpArr = array($files);
-            foreach ($tmpArr as $k => $value) {
-                $filePath = $value;
-                $key = date("Ymd_H-i-s")."_".uniqid().".".$pattern; // 文件保存的路径及其文件名
-                $res = $uploadMgr->putFile($token, $key, $filePath); // 上传
-
-                //$link = $domain."/".$key; // 文件直接访问地址
-                //print_r($link);
-
-                if ($res){ //成功上传
-                    return array("status"=>1,"content"=>$res[0]['key']); // 返回文件名
-                }else{
-                    return array("status"=>0,"content"=>"qiniu-upload-img is error");
-                }
-            }
-
-        }else{
-            return array( "status"=>0, "content"=>"REQUEST is error");
+        $base64 = input('base64');
+        if (!$base64){
+            return array("status"=>0,"content"=>"base64 is null");
         }
+
+        $path = "h5/base64_img"; //文件路径
+        $file = "/".date('Ymd',time())."/";
+
+        //匹配出图片的格式
+        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64, $result)){
+            $type = $result[2];
+
+            $new_file = ROOT_PATH.$path.$file;
+            if(!file_exists($new_file)){
+                //检查是否有该文件夹，如果没有就创建，并给予最高权限
+                mkdir($new_file, 0755);
+            }
+
+            $img = time().uniqid().".{$type}";
+
+            $new_file = $new_file.$img;
+
+            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64)))){
+
+                $files = ROOT_PATH.$path.$file.$img;
+                $qiniu_bucket = "toudeng";
+
+                $qiniuapi = new Qiniuapi(); // 实例化
+
+                $res = $qiniuapi->qiniu_upload_api($files, $qiniu_bucket);
+
+                return json_encode($res);
+
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+
     }
 
 
 
+    /**
+     *
+     * 通过img的网址，保存到本地然后上传到七牛云
+     *
+     * $img_url 下载文件地址
+     *
+     */
+    function save_url_img($img_url) {
 
+
+        if (trim($img_url) == '') {
+            return array("status"=>0,"content"=>"img_url is null");
+        }
+
+        $path = "h5/url_img"; //文件路径
+        $file = "/".date('Ymd',time())."/";
+
+        $pattern = substr(strrchr($img_url, '.'), 1); // 正则文件格式
+
+        $filename = ROOT_PATH.$path.$file;
+        if(!file_exists($filename)){
+            //检查是否有该文件夹，如果没有就创建，并给予最高权限
+            mkdir($filename, 0755);
+        }
+
+        $filename = $filename.time().uniqid().'.'.$pattern;
+
+        // curl下载文件
+        $ch = curl_init();
+        $timeout = 5;
+        curl_setopt($ch, CURLOPT_URL, $img_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        $img = curl_exec($ch);
+        curl_close($ch);
+
+        // 保存文件到制定路径
+        file_put_contents($filename, $img);
+
+
+        $qiniu_bucket = "toudeng";
+
+        $qiniuapi = new Qiniuapi(); // 实例化
+        $qiniuapi->qiniu_upload_api($filename, $qiniu_bucket);
+
+        unset($img, $url);
+        return true;
+    }
 
 
 

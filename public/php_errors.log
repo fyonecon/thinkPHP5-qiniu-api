@@ -1,0 +1,49 @@
+[11-Apr-2018 17:10:41 PRC] PHP Fatal error:  Class 'Think\Controller' not found in /web/wxvote/tp5/application/officialnumber/controller/Wxauth.php on line 14
+[13-Apr-2018 14:58:35 PRC] PHP Fatal error:  Uncaught think\exception\ErrorException: Array to string conversion in /web/wxvote/tp5/application/officialnumber/controller/Game.php:83
+Stack trace:
+#0 /web/wxvote/tp5/application/officialnumber/controller/Game.php(83): think\Error::appError(8, 'Array to string...', '/web/wxvote/tp5...', 83, Array)
+#1 [internal function]: app\officialnumber\controller\Game->h52048_add_score()
+#2 /web/wxvote/tp5/thinkphp/library/think/App.php(197): ReflectionMethod->invokeArgs(Object(app\officialnumber\controller\Game), Array)
+#3 /web/wxvote/tp5/thinkphp/library/think/App.php(411): think\App::invokeMethod(Array, Array)
+#4 /web/wxvote/tp5/thinkphp/library/think/App.php(296): think\App::module(Array, Array, true)
+#5 /web/wxvote/tp5/thinkphp/library/think/App.php(124): think\App::exec(Array, Array)
+#6 /web/wxvote/tp5/thinkphp/start.php(18): think\App::run()
+#7 /web/wxvote/tp5/public/index.php(17): require('/web/wxvote/tp5...')
+#8 {main}
+  thrown in /web/wxvote/tp5/application/officialnumber/controller/Game.php on line 83
+[13-Apr-2018 14:59:07 PRC] PHP Fatal error:  Uncaught think\exception\ErrorException: Array to string conversion in /web/wxvote/tp5/application/officialnumber/controller/Game.php:83
+Stack trace:
+#0 /web/wxvote/tp5/application/officialnumber/controller/Game.php(83): think\Error::appError(8, 'Array to string...', '/web/wxvote/tp5...', 83, Array)
+#1 [internal function]: app\officialnumber\controller\Game->h52048_add_score()
+#2 /web/wxvote/tp5/thinkphp/library/think/App.php(197): ReflectionMethod->invokeArgs(Object(app\officialnumber\controller\Game), Array)
+#3 /web/wxvote/tp5/thinkphp/library/think/App.php(411): think\App::invokeMethod(Array, Array)
+#4 /web/wxvote/tp5/thinkphp/library/think/App.php(296): think\App::module(Array, Array, true)
+#5 /web/wxvote/tp5/thinkphp/library/think/App.php(124): think\App::exec(Array, Array)
+#6 /web/wxvote/tp5/thinkphp/start.php(18): think\App::run()
+#7 /web/wxvote/tp5/public/index.php(17): require('/web/wxvote/tp5...')
+#8 {main}
+  thrown in /web/wxvote/tp5/application/officialnumber/controller/Game.php on line 83
+[13-Apr-2018 14:59:14 PRC] PHP Fatal error:  Uncaught think\exception\ErrorException: Array to string conversion in /web/wxvote/tp5/application/officialnumber/controller/Game.php:83
+Stack trace:
+#0 /web/wxvote/tp5/application/officialnumber/controller/Game.php(83): think\Error::appError(8, 'Array to string...', '/web/wxvote/tp5...', 83, Array)
+#1 [internal function]: app\officialnumber\controller\Game->h52048_add_score()
+#2 /web/wxvote/tp5/thinkphp/library/think/App.php(197): ReflectionMethod->invokeArgs(Object(app\officialnumber\controller\Game), Array)
+#3 /web/wxvote/tp5/thinkphp/library/think/App.php(411): think\App::invokeMethod(Array, Array)
+#4 /web/wxvote/tp5/thinkphp/library/think/App.php(296): think\App::module(Array, Array, true)
+#5 /web/wxvote/tp5/thinkphp/library/think/App.php(124): think\App::exec(Array, Array)
+#6 /web/wxvote/tp5/thinkphp/start.php(18): think\App::run()
+#7 /web/wxvote/tp5/public/index.php(17): require('/web/wxvote/tp5...')
+#8 {main}
+  thrown in /web/wxvote/tp5/application/officialnumber/controller/Game.php on line 83
+[13-Apr-2018 14:59:35 PRC] PHP Fatal error:  Uncaught think\exception\ErrorException: Array to string conversion in /web/wxvote/tp5/application/officialnumber/controller/Game.php:83
+Stack trace:
+#0 /web/wxvote/tp5/application/officialnumber/controller/Game.php(83): think\Error::appError(8, 'Array to string...', '/web/wxvote/tp5...', 83, Array)
+#1 [internal function]: app\officialnumber\controller\Game->h52048_add_score()
+#2 /web/wxvote/tp5/thinkphp/library/think/App.php(197): ReflectionMethod->invokeArgs(Object(app\officialnumber\controller\Game), Array)
+#3 /web/wxvote/tp5/thinkphp/library/think/App.php(411): think\App::invokeMethod(Array, Array)
+#4 /web/wxvote/tp5/thinkphp/library/think/App.php(296): think\App::module(Array, Array, true)
+#5 /web/wxvote/tp5/thinkphp/library/think/App.php(124): think\App::exec(Array, Array)
+#6 /web/wxvote/tp5/thinkphp/start.php(18): think\App::run()
+#7 /web/wxvote/tp5/public/index.php(17): require('/web/wxvote/tp5...')
+#8 {main}
+  thrown in /web/wxvote/tp5/application/officialnumber/controller/Game.php on line 83

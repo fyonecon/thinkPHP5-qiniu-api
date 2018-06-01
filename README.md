@@ -1,6 +1,9 @@
 # thinkPHP5-qiniu-api
 基于TP5的七牛云对象存储上传文件api，支持任意文件格式。简单的api方便移植。
 
+思路：先将文件上传到你的服务器，再用下面api将服务器文件一个个上传到七牛云里面，最终返回七牛云中文件对应地址。
+所以，下面api是将你的服务器文件上传到七牛云中。
+
 直接调用：http://localhost/wxmail/public/?s=/qiniuapi/index 即可查看返回结果http://p9mda7c37.bkt.clouddn.com20180601_11-34-23_5b10bebfa683c.png
 
     /*

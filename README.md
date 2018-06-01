@@ -4,7 +4,7 @@
 思路：先将文件上传到你的服务器，再用下面api将服务器文件一个个上传到七牛云里面，最终返回七牛云中文件对应地址。
 所以，下面api是将你的服务器文件上传到七牛云中。
 
-直接调用：http://localhost/wxmail/public/?s=/qiniuapi/index 即可查看返回结果http://p9mda7c37.bkt.clouddn.com20180601_11-34-23_5b10bebfa683c.png
+直接调用：http://localhost/wxmail/public/?s=/qiniuapi/index 即可查看返回结果http://p9mda7c37.bkt.clouddn.com/20180601_11-34-23_5b10bebfa683c.png
 
     /*
      * 向七牛云上传文件【post Api】，支持【一切有格式】的文件，并返回文件名

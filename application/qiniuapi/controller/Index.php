@@ -25,7 +25,7 @@ class Index extends Controller{
         print_r($res['status']); // 最终状态
         echo '<hr>';
         print_r($res['content']); // 最终文件名
-        echo "http://p9mda7c37.bkt.clouddn.com".$res['content'];
+        echo "http://p9mda7c37.bkt.clouddn.com/".$res['content'];
 
     }
 
